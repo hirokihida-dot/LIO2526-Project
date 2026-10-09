@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="industry.css">
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1d2d3d"></rect><polyline points="22,66 38,52 50,58 64,38 78,30" fill="none" stroke="#94bce3" stroke-width="4"></polyline></svg></template>
+<style>
+body{margin:0;background:#f2f2f3}
+a{color:#416180}
+a:hover{color:#2c455d}
+input[type=range]{accent-color:#5980a6;width:100%}
+</style>
+</helmet>
+<div style="display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body)">
+<aside style="background:var(--color-accent-900);color:var(--color-neutral-200);display:flex;flex-direction:column;gap:28px;padding:24px 0;position:sticky;top:0;height:100vh;box-sizing:border-box">
+  <div style="display:flex;align-items:center;gap:12px;padding:0 20px">
+    <div style="width:36px;height:36px;border:1px solid var(--color-accent-400);display:grid;place-items:center;font-family:var(--font-heading);font-weight:600;font-size:14px;color:var(--color-accent-300);flex:none">SPV</div>
+    <div style="display:flex;flex-direction:column;line-height:1.15">
+      <span style="font-family:var(--font-heading);font-weight:600;font-size:19px;color:#fff">Previsión de ventas</span>
+      <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-400)">Automoción · v0.1</span>
+    </div>
+  </div>
+  <nav style="display:flex;flex-direction:column">
+    <button onClick="{{ nav.datos.go }}" style="display:grid;grid-template-columns:20px 18px 1fr;align-items:center;gap:10px;padding:11px 20px 11px 18px;border:0;border-left:2px solid {{ nav.datos.bar }};background:{{ nav.datos.bg }};color:{{ nav.datos.fg }};font-family:var(--font-body);font-size:14px;text-align:left;cursor:pointer">
+      <span style="font-size:10px;letter-spacing:.08em;color:var(--color-accent-400)">01</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+      <span>Carga de datos</span>
+    </button>
+    <button onClick="{{ nav.prevision.go }}" style="display:grid;grid-template-columns:20px 18px 1fr;align-items:center;gap:10px;padding:11px 20px 11px 18px;border:0;border-left:2px solid {{ nav.prevision.bar }};background:{{ nav.prevision.bg }};color:{{ nav.prevision.fg }};font-family:var(--font-body);font-size:14px;text-align:left;cursor:pointer">
+      <span style="font-size:10px;letter-spacing:.08em;color:var(--color-accent-400)">02</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+      <span>Previsión</span>
+    </button>
+    <button onClick="{{ nav.modelos.go }}" style="display:grid;grid-template-columns:20px 18px 1fr;align-items:center;gap:10px;padding:11px 20px 11px 18px;border:0;border-left:2px solid {{ nav.modelos.bar }};background:{{ nav.modelos.bg }};color:{{ nav.modelos.fg }};font-family:var(--font-body);font-size:14px;text-align:left;cursor:pointer">
+      <span style="font-size:10px;letter-spacing:.08em;color:var(--color-accent-400)">03</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>
+      <span>Comparativa de modelos</span>
+    </button>
+    <button onClick="{{ nav.lanzamiento.go }}" style="display:grid;grid-template-columns:20px 18px 1fr;align-items:center;gap:10px;padding:11px 20px 11px 18px;border:0;border-left:2px solid {{ nav.lanzamiento.bar }};background:{{ nav.lanzamiento.bg }};color:{{ nav.lanzamiento.fg }};font-family:var(--font-body);font-size:14px;text-align:left;cursor:pointer">
+      <span style="font-size:10px;letter-spacing:.08em;color:var(--color-accent-400)">04</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
+      <span>Lanzamiento</span>
+    </button>
+    <button onClick="{{ nav.escenarios.go }}" style="display:grid;grid-template-columns:20px 18px 1fr;align-items:center;gap:10px;padding:11px 20px 11px 18px;border:0;border-left:2px solid {{ nav.escenarios.bar }};background:{{ nav.escenarios.bg }};color:{{ nav.escenarios.fg }};font-family:var(--font-body);font-size:14px;text-align:left;cursor:pointer">
+      <span style="font-size:10px;letter-spacing:.08em;color:var(--color-accent-400)">05</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="14" y1="4" y2="4"></line><line x1="10" x2="3" y1="4" y2="4"></line><line x1="21" x2="12" y1="12" y2="12"></line><line x1="8" x2="3" y1="12" y2="12"></line><line x1="21" x2="16" y1="20" y2="20"></line><line x1="12" x2="3" y1="20" y2="20"></line><line x1="14" x2="14" y1="2" y2="6"></line><line x1="8" x2="8" y1="10" y2="14"></line><line x1="16" x2="16" y1="18" y2="22"></line></svg>
+      <span>Escenarios</span>
+    </button>
+    <button onClick="{{ nav.exportar.go }}" style="display:grid;grid-template-columns:20px 18px 1fr;align-items:center;gap:10px;padding:11px 20px 11px 18px;border:0;border-left:2px solid {{ nav.exportar.bar }};background:{{ nav.exportar.bg }};color:{{ nav.exportar.fg }};font-family:var(--font-body);font-size:14px;text-align:left;cursor:pointer">
+      <span style="font-size:10px;letter-spacing:.08em;color:var(--color-accent-400)">06</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+      <span>Exportar</span>
+    </button>
+  </nav>
+  <div style="margin-top:auto;padding:0 20px;display:flex;flex-direction:column;gap:4px">
+    <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-400)">Dataset activo</span>
+    <span style="font-size:13px;color:#fff;word-break:break-all">{{ dataset }}</span>
+    <span style="font-size:12px;color:var(--color-neutral-400)">5 modelos · 1.096 días</span>
+  </div>
+</aside>
+
+<main style="padding:28px 36px 56px;display:flex;flex-direction:column;gap:28px;min-width:0">
+  <header style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--color-divider)">
+    <div style="display:flex;flex-direction:column;gap:6px;max-width:720px">
+      <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">{{ head.step }}</span>
+      <h1 style="margin:0;font-size:42px">{{ head.title }}</h1>
+      <p style="margin:0;color:var(--color-neutral-700);font-size:15px;text-wrap:pretty">{{ head.sub }}</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <span class="tag tag-neutral">Datos hasta 30 sep 2026</span>
+      <span class="tag tag-accent">Modelo activo · Fase 3</span>
+    </div>
+  </header>
+
+  <sc-if value="{{ is.datos }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="01 Carga de datos" style="display:flex;flex-direction:column;gap:28px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px">
+      <div class="card blueprint" style="padding:20px;gap:14px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+          <span class="card-kicker" style="color:var(--color-accent-700)">Dataset activo</span>
+          <span class="tag tag-accent">Validado</span>
+        </div>
+        <span class="card-title" style="font-size:22px;word-break:break-all">{{ dataset }}</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:16px;border-top:1px solid var(--color-divider);padding-top:14px">
+          <sc-for list="{{ dsSpecs }}" as="s" hint-placeholder-count="5">
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <span style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-700)">{{ s.k }}</span>
+              <span style="font-family:var(--font-heading);font-weight:600;font-size:22px">{{ s.v }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div class="card blueprint" style="padding:20px;gap:10px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span class="card-kicker" style="color:var(--color-accent-700)">Formato esperado</span>
+        <table class="table" style="font-size:13px">
+          <thead><tr><th>Columna</th><th>Tipo</th><th>Obligatoria</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:500">fecha</td><td>AAAA-MM-DD</td><td>Sí</td></tr>
+            <tr><td style="font-weight:500">sku</td><td>Texto (modelo)</td><td>Sí</td></tr>
+            <tr><td style="font-weight:500">unidades</td><td>Entero</td><td>Sí</td></tr>
+            <tr><td style="font-weight:500">precio</td><td>Decimal (€)</td><td>No</td></tr>
+            <tr><td style="font-weight:500">promocion</td><td>0 / 1</td><td>No</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <label onDragOver="{{ onDragOver }}" onDragLeave="{{ onDragLeave }}" onDrop="{{ onDrop }}" class="blueprint" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:44px 24px;border:1px dashed {{ up.border }};background:{{ up.bg }};cursor:pointer;text-align:center">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <input type="file" accept=".csv,.xlsx,.xls" onChange="{{ onFile }}" style="display:none">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#5980a6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M8 13h2"></path><path d="M14 13h2"></path><path d="M8 17h2"></path><path d="M14 17h2"></path></svg>
+      <span style="font-family:var(--font-heading);font-weight:600;font-size:22px">Arrastra aquí un archivo CSV o Excel</span>
+      <span style="font-size:14px;color:var(--color-neutral-700)">o haz clic para seleccionarlo · ventas diarias por modelo, máx. 50 MB</span>
+    </label>
+    <div style="display:flex;gap:12px;align-items:center;margin-top:-12px">
+      <button class="btn btn-secondary" onClick="{{ onSample }}">Cargar dataset de ejemplo</button>
+      <span style="font-size:13px;color:var(--color-neutral-700)">Ventas simuladas de 5 modelos, oct 2023 – sep 2026.</span>
+    </div>
+
+    <sc-if value="{{ up.has }}" hint-placeholder-val="{{ false }}">
+    <div style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:24px">
+      <div class="card blueprint" style="padding:20px;gap:12px;min-width:0"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <span class="card-kicker" style="color:var(--color-accent-700)">Vista previa</span>
+            <span class="card-title" style="font-size:20px;word-break:break-all">{{ up.file }}</span>
+          </div>
+          <span style="font-size:13px;color:var(--color-neutral-700)">{{ up.meta }}</span>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="table" style="font-size:13px">
+            <thead><tr><sc-for list="{{ up.headers }}" as="h" hint-placeholder-count="4"><th>{{ h }}</th></sc-for></tr></thead>
+            <tbody><sc-for list="{{ up.rows }}" as="r" hint-placeholder-count="4"><tr><sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="4"><td>{{ c }}</td></sc-for></tr></sc-for></tbody>
+          </table>
+        </div>
+        <span style="font-size:13px;color:var(--color-neutral-700)">{{ up.note }}</span>
+      </div>
+      <div class="card blueprint" style="padding:20px;gap:14px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span class="card-kicker" style="color:var(--color-accent-700)">Asignación de columnas</span>
+        <sc-for list="{{ up.maps }}" as="m" hint-placeholder-count="3">
+          <div class="field">
+            <label>{{ m.label }}</label>
+            <select class="input" value="{{ m.value }}" onChange="{{ m.onChange }}">
+              <option value="">— Sin asignar —</option>
+              <sc-for list="{{ up.headers }}" as="h" hint-placeholder-count="0"><option value="{{ h }}">{{ h }}</option></sc-for>
+            </select>
+          </div>
+        </sc-for>
+        <div style="display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--color-divider);padding-top:12px">
+          <sc-for list="{{ up.checks }}" as="c" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px">
+              <span style="width:9px;height:9px;flex:none;border:1px solid var(--color-accent);background:{{ c.dot }}"></span>
+              <span style="flex:1">{{ c.label }}</span>
+              <span style="color:var(--color-neutral-700)">{{ c.state }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <button class="btn btn-primary blueprint" onClick="{{ onProcess }}" disabled="{{ up.disabled }}" style="padding:10px 16px;font-size:15px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>{{ up.cta }}</button>
+        <sc-if value="{{ up.done }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;background:var(--color-accent-100);color:var(--color-accent-800);padding:10px 12px">
+            <span>Serie agregada y lista para previsión.</span>
+            <button class="btn btn-ghost" onClick="{{ nav.prevision.go }}">Ver previsión →</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ is.prevision }}" hint-placeholder-val="{{ true }}">
+  <section data-screen-label="02 Previsión" style="display:flex;flex-direction:column;gap:28px">
+    <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end">
+      <div class="field" style="min-width:240px">
+        <label>Modelo de vehículo</label>
+        <select class="input" value="{{ sku }}" onChange="{{ onSku }}"><sc-for list="{{ skuOpts }}" as="o" hint-placeholder-count="0"><option value="{{ o.id }}">{{ o.label }}</option></sc-for></select>
+      </div>
+      <div class="field">
+        <label>Granularidad</label>
+        <div class="seg"><sc-for list="{{ granOpts }}" as="o" hint-placeholder-count="3"><button class="seg-opt" onClick="{{ o.onClick }}" style="border:0;border-left:{{ o.bl }};background:{{ o.bg }};color:{{ o.fg }};font-family:var(--font-body)">{{ o.label }}</button></sc-for></div>
+      </div>
+      <div class="field">
+        <label>Horizonte</label>
+        <div class="seg"><sc-for list="{{ hzOpts }}" as="o" hint-placeholder-count="3"><button class="seg-opt" onClick="{{ o.onClick }}" style="border:0;border-left:{{ o.bl }};background:{{ o.bg }};color:{{ o.fg }};font-family:var(--font-body)">{{ o.label }}</button></sc-for></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:24px">
+      <sc-for list="{{ fc.kpis }}" as="k" hint-placeholder-count="4">
+        <div class="card blueprint" style="padding:18px 20px;gap:6px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <span class="card-kicker" style="color:var(--color-accent-700)">{{ k.kicker }}</span>
+          <div style="display:flex;align-items:baseline;gap:6px"><span style="font-family:var(--font-heading);font-weight:600;font-size:40px;line-height:1">{{ k.value }}</span><span style="font-size:14px;color:var(--color-neutral-700)">{{ k.unit }}</span></div>
+          <span style="font-size:12px;color:var(--color-neutral-700)">{{ k.meta }}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <div class="card blueprint" style="padding:20px 20px 12px;gap:14px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px">
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <span class="card-kicker" style="color:var(--color-accent-700)">{{ fc.kicker }}</span>
+          <span class="card-title" style="font-size:24px">Histórico y previsión</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:var(--color-neutral-800)">
+          <span style="display:flex;align-items:center;gap:8px"><span style="width:22px;border-top:2px solid var(--color-accent-800)"></span>Ventas reales</span>
+          <span style="display:flex;align-items:center;gap:8px"><span style="width:22px;border-top:2px dashed var(--color-accent)"></span>Previsión</span>
+          <span style="display:flex;align-items:center;gap:8px"><span style="width:22px;height:10px;background:var(--color-accent-300)"></span>IC 95 %</span>
+        </div>
+      </div>
+      <div ref="{{ rFc }}" style="position:relative">
+        <svg viewBox="{{ fc.c.viewBox }}" onMouseMove="{{ onFcMove }}" onMouseLeave="{{ onFcLeave }}" style="display:block;width:100%;height:auto;overflow:visible;cursor:crosshair">
+          <rect x="{{ fc.c.zone.x }}" y="{{ fc.c.zone.y }}" width="{{ fc.c.zone.w }}" height="{{ fc.c.zone.h }}" style="fill:var(--color-accent-100)"></rect>
+          <sc-for list="{{ fc.c.gridY }}" as="g" hint-placeholder-count="0">
+            <line x1="{{ g.x1 }}" x2="{{ g.x2 }}" y1="{{ g.y }}" y2="{{ g.y }}" style="stroke:var(--color-neutral-300);stroke-width:1"></line>
+          </sc-for>
+          <path d="{{ fc.c.bandD }}" style="fill:var(--color-accent-300);opacity:0.6"></path>
+          <line x1="{{ fc.c.splitX }}" x2="{{ fc.c.splitX }}" y1="{{ fc.c.top }}" y2="{{ fc.c.bottom }}" style="stroke:var(--color-neutral-600);stroke-width:1;stroke-dasharray:3 3"></line>
+          <text x="{{ fc.c.splitTx }}" y="{{ fc.c.splitTy }}" style="font-family:var(--font-body);font-size:11px;fill:var(--color-accent-700);letter-spacing:0.08em">PREVISIÓN →</text>
+          <sc-for list="{{ fc.c.lines }}" as="l" hint-placeholder-count="0"><path d="{{ l.d }}" style="fill:none;stroke:{{ l.stroke }};stroke-width:{{ l.sw }};stroke-dasharray:{{ l.dash }};stroke-linejoin:round"></path></sc-for>
+          
+          <line x1="{{ fc.tip.x }}" x2="{{ fc.tip.x }}" y1="{{ fc.c.top }}" y2="{{ fc.c.bottom }}" style="stroke:var(--color-accent-800);stroke-width:1;opacity:{{ fc.tip.op }}"></line>
+          <circle cx="{{ fc.tip.x }}" cy="{{ fc.tip.y }}" r="5" style="fill:var(--color-bg);stroke:var(--color-accent-800);stroke-width:2;opacity:{{ fc.tip.op }}"></circle>
+        </svg><sc-for list="{{ fc.c.gridY }}" as="g" hint-placeholder-count="0"><div style="position:absolute;left:{{ g.txp }};top:{{ g.yp }};transform:translate(-100%,-50%);font-size:12px;line-height:1;color:var(--color-neutral-700);white-space:nowrap;pointer-events:none">{{ g.label }}</div></sc-for><sc-for list="{{ fc.c.ticksX }}" as="t" hint-placeholder-count="0"><div style="position:absolute;left:{{ t.xp }};top:{{ t.yp }};transform:translate(-50%,-100%);font-size:12px;line-height:1;color:var(--color-neutral-700);white-space:nowrap;pointer-events:none">{{ t.label }}</div></sc-for>
+        <div style="position:absolute;left:{{ fc.tip.left }};top:{{ fc.tip.top }};transform:translate(-50%, calc(-100% - 14px));opacity:{{ fc.tip.op }};pointer-events:none;background:var(--color-accent-900);color:#fff;padding:8px 12px;font-size:12px;white-space:nowrap;display:flex;flex-direction:column;gap:2px;box-shadow:var(--shadow-md)">
+          <span style="font-size:11px;color:var(--color-accent-300)">{{ fc.tip.title }}</span>
+          <span style="font-family:var(--font-heading);font-size:20px;font-weight:600;line-height:1.1">{{ fc.tip.value }}</span>
+          <span style="color:var(--color-neutral-300)">{{ fc.tip.sub }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:24px">
+      <div class="card blueprint" style="padding:20px;gap:10px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+          <span class="card-title" style="font-size:20px">Detalle por periodo</span>
+          <span style="font-size:12px;color:var(--color-neutral-700)">{{ fc.detailMeta }}</span>
+        </div>
+        <table class="table" style="font-size:13px">
+          <thead><tr><th>Periodo</th><th style="text-align:right">Previsión</th><th style="text-align:right">IC 95 %</th><th style="text-align:right">vs. año anterior</th></tr></thead>
+          <tbody><sc-for list="{{ fc.detail }}" as="r" hint-placeholder-count="6"><tr>
+            <td>{{ r.label }}</td>
+            <td style="text-align:right;font-weight:500;font-variant-numeric:tabular-nums">{{ r.v }}</td>
+            <td style="text-align:right;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">{{ r.ci }}</td>
+            <td style="text-align:right;font-variant-numeric:tabular-nums">{{ r.yoy }}</td>
+          </tr></sc-for></tbody>
+        </table>
+      </div>
+      <div class="card blueprint" style="padding:20px;gap:10px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+          <span class="card-title" style="font-size:20px">Previsión por modelo</span>
+          <span style="font-size:12px;color:var(--color-neutral-700)">Clic en una fila para filtrar</span>
+        </div>
+        <table class="table" style="font-size:13px">
+          <thead><tr><th>Modelo</th><th style="text-align:right">Previsión</th><th style="width:38%">Cuota</th></tr></thead>
+          <tbody><sc-for list="{{ fc.bySku }}" as="r" hint-placeholder-count="5"><tr onClick="{{ r.onClick }}" style="cursor:pointer;background:{{ r.bg }}">
+            <td><div style="display:flex;flex-direction:column"><span style="font-weight:500">{{ r.name }}</span><span style="font-size:12px;color:var(--color-neutral-700)">{{ r.seg }}</span></div></td>
+            <td style="text-align:right;font-weight:500;font-variant-numeric:tabular-nums">{{ r.v }}</td>
+            <td><div style="display:flex;align-items:center;gap:10px"><div style="flex:1;height:8px;background:var(--color-neutral-200)"><div style="height:100%;width:{{ r.w }};background:var(--color-accent)"></div></div><span style="width:44px;text-align:right;font-variant-numeric:tabular-nums">{{ r.share }}</span></div></td>
+          </tr></sc-for></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ is.modelos }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="03 Comparativa de modelos" style="display:flex;flex-direction:column;gap:28px">
+    <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end">
+      <div class="field" style="min-width:240px">
+        <label>Modelo de vehículo</label>
+        <select class="input" value="{{ sku }}" onChange="{{ onSku }}"><sc-for list="{{ skuOpts }}" as="o" hint-placeholder-count="0"><option value="{{ o.id }}">{{ o.label }}</option></sc-for></select>
+      </div>
+      <span style="font-size:13px;color:var(--color-neutral-700);padding-bottom:8px">{{ md.window }}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px">
+      <sc-for list="{{ md.phases }}" as="p" hint-placeholder-count="3">
+        <div class="card blueprint" onClick="{{ p.toggle }}" style="padding:20px;gap:10px;cursor:pointer;opacity:{{ p.op }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:22px">
+            <span class="card-kicker" style="color:var(--color-accent-700)">{{ p.fase }}</span>
+            <sc-if value="{{ p.best }}" hint-placeholder-val="{{ false }}"><span class="tag tag-accent">Menor error</span></sc-if>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <svg width="28" height="6" style="flex:none"><line x1="0" x2="28" y1="3" y2="3" style="stroke:{{ p.stroke }};stroke-width:2.5;stroke-dasharray:{{ p.dash }}"></line></svg>
+            <span class="card-title" style="font-size:22px">{{ p.name }}</span>
+          </div>
+          <p style="margin:0;font-size:13px;color:var(--color-neutral-700);flex:1;text-wrap:pretty">{{ p.desc }}</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;border-top:1px solid var(--color-divider);padding-top:12px">
+            <div style="display:flex;flex-direction:column"><span style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-700)">MAPE</span><span style="font-family:var(--font-heading);font-size:26px;font-weight:600">{{ p.mape }}</span></div>
+            <div style="display:flex;flex-direction:column"><span style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-700)">RMSE</span><span style="font-family:var(--font-heading);font-size:26px;font-weight:600">{{ p.rmse }}</span></div>
+            <div style="display:flex;flex-direction:column"><span style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-700)">Cobertura IC</span><span style="font-family:var(--font-heading);font-size:26px;font-weight:600">{{ p.cov }}</span></div>
+          </div>
+          <span style="font-size:12px;color:var(--color-accent-700)">{{ p.toggleLabel }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div class="card blueprint" style="padding:20px 20px 12px;gap:14px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <span class="card-kicker" style="color:var(--color-accent-700)">Backtesting · mensual</span>
+        <span class="card-title" style="font-size:24px">Ventas reales frente a cada fase</span>
+      </div>
+      <div ref="{{ rMd }}" style="position:relative"><svg viewBox="{{ md.c.viewBox }}" style="display:block;width:100%;height:auto;overflow:visible">
+        <sc-for list="{{ md.c.gridY }}" as="g" hint-placeholder-count="0">
+          <line x1="{{ g.x1 }}" x2="{{ g.x2 }}" y1="{{ g.y }}" y2="{{ g.y }}" style="stroke:var(--color-neutral-300);stroke-width:1"></line>
+        </sc-for>
+        <sc-for list="{{ md.c.lines }}" as="l" hint-placeholder-count="0"><path d="{{ l.d }}" style="fill:none;stroke:{{ l.stroke }};stroke-width:{{ l.sw }};stroke-dasharray:{{ l.dash }};stroke-linejoin:round"></path></sc-for>
+        
+      </svg><sc-for list="{{ md.c.gridY }}" as="g" hint-placeholder-count="0"><div style="position:absolute;left:{{ g.txp }};top:{{ g.yp }};transform:translate(-100%,-50%);font-size:12px;line-height:1;color:var(--color-neutral-700);white-space:nowrap;pointer-events:none">{{ g.label }}</div></sc-for><sc-for list="{{ md.c.ticksX }}" as="t" hint-placeholder-count="0"><div style="position:absolute;left:{{ t.xp }};top:{{ t.yp }};transform:translate(-50%,-100%);font-size:12px;line-height:1;color:var(--color-neutral-700);white-space:nowrap;pointer-events:none">{{ t.label }}</div></sc-for></div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ is.lanzamiento }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="04 Lanzamiento" style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
+    <div class="card blueprint" style="padding:20px;gap:18px;flex:1 1 300px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <span class="card-kicker" style="color:var(--color-accent-700)">Ficha del nuevo modelo</span>
+      <div class="field"><label>Nombre</label><input class="input" value="{{ ln.name }}" onChange="{{ ln.onName }}"></div>
+      <div class="field"><label>Segmento</label><div class="seg" style="display:flex"><sc-for list="{{ ln.segOpts }}" as="o" hint-placeholder-count="4"><button class="seg-opt" onClick="{{ o.onClick }}" style="flex:1;justify-content:center;border:0;border-left:{{ o.bl }};background:{{ o.bg }};color:{{ o.fg }};font-family:var(--font-body)">{{ o.label }}</button></sc-for></div></div>
+      <div class="field"><label>Motorización</label><div class="seg" style="display:flex"><sc-for list="{{ ln.motorOpts }}" as="o" hint-placeholder-count="3"><button class="seg-opt" onClick="{{ o.onClick }}" style="flex:1;justify-content:center;border:0;border-left:{{ o.bl }};background:{{ o.bg }};color:{{ o.fg }};font-family:var(--font-body)">{{ o.label }}</button></sc-for></div></div>
+      <div class="field">
+        <label style="display:flex;justify-content:space-between"><span>Precio de venta</span><span style="font-weight:500;color:var(--color-text)">{{ ln.priceL }}</span></label>
+        <input type="range" min="15000" max="60000" step="500" value="{{ ln.price }}" onChange="{{ ln.onPrice }}">
+      </div>
+      <div class="field"><label>Mes de lanzamiento</label><select class="input" value="{{ ln.month }}" onChange="{{ ln.onMonth }}"><sc-for list="{{ ln.monthOpts }}" as="o" hint-placeholder-count="0"><option value="{{ o.v }}">{{ o.l }}</option></sc-for></select></div>
+      <div class="field"><label>Inversión en campaña</label><div class="seg" style="display:flex"><sc-for list="{{ ln.campOpts }}" as="o" hint-placeholder-count="3"><button class="seg-opt" onClick="{{ o.onClick }}" style="flex:1;justify-content:center;border:0;border-left:{{ o.bl }};background:{{ o.bg }};color:{{ o.fg }};font-family:var(--font-body)">{{ o.label }}</button></sc-for></div></div>
+      <div class="field">
+        <label>Modelos análogos de la gama</label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ ln.analogs }}" as="a" hint-placeholder-count="5"><button onClick="{{ a.onClick }}" style="padding:6px 12px;font-family:var(--font-body);font-size:13px;cursor:pointer;border:1px solid {{ a.border }};background:{{ a.bg }};color:{{ a.fg }}">{{ a.label }}</button></sc-for>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px;min-width:0;flex:3 1 520px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px">
+        <sc-for list="{{ ln.kpis }}" as="k" hint-placeholder-count="3">
+          <div class="card blueprint" style="padding:18px 20px;gap:6px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <span class="card-kicker" style="color:var(--color-accent-700)">{{ k.kicker }}</span>
+            <div style="display:flex;align-items:baseline;gap:6px"><span style="font-family:var(--font-heading);font-weight:600;font-size:38px;line-height:1">{{ k.value }}</span><span style="font-size:14px;color:var(--color-neutral-700)">{{ k.unit }}</span></div>
+            <span style="font-size:12px;color:var(--color-neutral-700)">{{ k.meta }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div class="card blueprint" style="padding:20px 20px 12px;gap:14px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px">
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <span class="card-kicker" style="color:var(--color-accent-700)">Curva de difusión de Bass · 24 meses</span>
+            <span class="card-title" style="font-size:24px">{{ ln.title }}</span>
+          </div>
+          <span style="font-size:13px;color:var(--color-neutral-800);font-variant-numeric:tabular-nums">{{ ln.params }}</span>
+        </div>
+        <div ref="{{ rLn }}" style="position:relative"><svg viewBox="{{ ln.c.viewBox }}" style="display:block;width:100%;height:auto;overflow:visible">
+          <sc-for list="{{ ln.c.gridY }}" as="g" hint-placeholder-count="0">
+            <line x1="{{ g.x1 }}" x2="{{ g.x2 }}" y1="{{ g.y }}" y2="{{ g.y }}" style="stroke:var(--color-neutral-300);stroke-width:1"></line>
+          </sc-for>
+          <path d="{{ ln.c.bandD }}" style="fill:var(--color-accent-300);opacity:0.6"></path>
+          <sc-for list="{{ ln.c.lines }}" as="l" hint-placeholder-count="0"><path d="{{ l.d }}" style="fill:none;stroke:{{ l.stroke }};stroke-width:{{ l.sw }};stroke-dasharray:{{ l.dash }};stroke-linejoin:round"></path></sc-for>
+          
+        </svg><sc-for list="{{ ln.c.gridY }}" as="g" hint-placeholder-count="0"><div style="position:absolute;left:{{ g.txp }};top:{{ g.yp }};transform:translate(-100%,-50%);font-size:12px;line-height:1;color:var(--color-neutral-700);white-space:nowrap;pointer-events:none">{{ g.label }}</div></sc-for><sc-for list="{{ ln.c.ticksX }}" as="t" hint-placeholder-count="0"><div style="position:absolute;left:{{ t.xp }};top:{{ t.yp }};transform:translate(-50%,-100%);font-size:12px;line-height:1;color:var(--color-neutral-700);white-space:nowrap;pointer-events:none">{{ t.label }}</div></sc-for></div>
+        <p style="margin:0;font-size:13px;color:var(--color-neutral-700);text-wrap:pretty">El mercado potencial (m) se estima por segmento, precio y motorización, y se combina al 50 % con las ventas de los análogos seleccionados. La banda muestra el IC 95 %, más ancho que en la previsión con histórico.</p>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ is.escenarios }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="05 Escenarios" style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
+    <div class="card blueprint" style="padding:20px;gap:18px;flex:1 1 300px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <span class="card-kicker" style="color:var(--color-accent-700)">Palancas del escenario</span>
+      <div class="field"><label>Modelo de vehículo</label><select class="input" value="{{ sku }}" onChange="{{ onSku }}"><sc-for list="{{ skuOpts }}" as="o" hint-placeholder-count="0"><option value="{{ o.id }}">{{ o.label }}</option></sc-for></select></div>
+      <div class="field">
+        <label style="display:flex;justify-content:space-between"><span>Variación de precio</span><span style="font-weight:500;color:var(--color-text)">{{ sc.dpL }}</span></label>
+        <input type="range" min="-15" max="15" step="1" value="{{ sc.dp }}" onChange="{{ sc.onDp }}">
+      </div>
+      <div class="field">
+        <label style="display:flex;justify-content:space-between"><span>Descuento promocional</span><span style="font-weight:500;color:var(--color-text)">{{ sc.discL }}</span></label>
+        <input type="range" min="0" max="25" step="1" value="{{ sc.disc }}" onChange="{{ sc.onDisc }}">
+      </div>
+      <div class="field"><label>Periodo de la promoción</label><div class="seg" style="display:flex"><sc-for list="{{ sc.promoOpts }}" as="o" hint-placeholder-count="3"><button class="seg-opt" onClick="{{ o.onClick }}" style="flex:1;justify-content:center;border:0;border-left:{{ o.bl }};background:{{ o.bg }};color:{{ o.fg }};font-family:var(--font-body)">{{ o.label }}</button></sc-for></div></div>
+      <div class="field"><label>Estacionalidad</label><div class="seg" style="display:flex"><sc-for list="{{ sc.seasOpts }}" as="o" hint-placeholder-count="3"><button class="seg-opt" onClick="{{ o.onClick }}" style="flex:1;justify-content:center;border:0;border-left:{{ o.bl }};background:{{ o.bg }};color:{{ o.fg }};font-family:var(--font-body)">{{ o.label }}</button></sc-for></div></div>
+      <button onClick="{{ sc.onIncent }}" style="display:flex;align-items:center;gap:12px;background:none;border:0;padding:0;cursor:pointer;font-family:var(--font-body);font-size:14px;color:var(--color-text);text-align:left">
+        <span style="width:38px;height:20px;flex:none;border:1px solid {{ sc.tgBorder }};background:{{ sc.tgBg }};position:relative"><span style="position:absolute;top:2px;left:{{ sc.tgLeft }};width:14px;height:14px;background:{{ sc.tgKnob }}"></span></span>
+        <span style="display:flex;flex-direction:column"><span>Incentivo público a la compra</span><span style="font-size:12px;color:var(--color-neutral-700)">+14 % eléctricos, +3 % resto</span></span>
+      </button>
+      <button class="btn btn-secondary" onClick="{{ sc.onReset }}" style="align-self:flex-start">Restablecer</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px;min-width:0;flex:3 1 520px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px">
+        <sc-for list="{{ sc.kpis }}" as="k" hint-placeholder-count="3">
+          <div class="card blueprint" style="padding:18px 20px;gap:6px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <span class="card-kicker" style="color:var(--color-accent-700)">{{ k.kicker }}</span>
+            <div style="display:flex;align-items:baseline;gap:6px"><span style="font-family:var(--font-heading);font-weight:600;font-size:38px;line-height:1">{{ k.value }}</span><span style="font-size:14px;color:var(--color-neutral-700)">{{ k.unit }}</span></div>
+            <span style="font-size:12px;color:var(--color-neutral-700)">{{ k.meta }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div class="card blueprint" style="padding:20px 20px 12px;gap:14px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px">
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <span class="card-kicker" style="color:var(--color-accent-700)">Próximos 12 meses</span>
+            <span class="card-title" style="font-size:24px">Previsión base frente a escenario</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:var(--color-neutral-800)">
+            <span style="display:flex;align-items:center;gap:8px"><span style="width:22px;border-top:2px dashed var(--color-neutral-600)"></span>Base</span>
+            <span style="display:flex;align-items:center;gap:8px"><span style="width:22px;border-top:2px solid var(--color-accent)"></span>Escenario</span>
+            <span style="display:flex;align-items:center;gap:8px"><span style="width:14px;height:10px;background:var(--color-accent-100);border:1px solid var(--color-accent-300)"></span>Meses con promoción</span>
+          </div>
+        </div>
+        <div ref="{{ rSc }}" style="position:relative"><svg viewBox="{{ sc.c.viewBox }}" style="display:block;width:100%;height:auto;overflow:visible">
+          <sc-for list="{{ sc.c.zones }}" as="z" hint-placeholder-count="0"><rect x="{{ z.x }}" y="{{ z.y }}" width="{{ z.w }}" height="{{ z.h }}" style="fill:var(--color-accent-100)"></rect></sc-for>
+          <sc-for list="{{ sc.c.gridY }}" as="g" hint-placeholder-count="0">
+            <line x1="{{ g.x1 }}" x2="{{ g.x2 }}" y1="{{ g.y }}" y2="{{ g.y }}" style="stroke:var(--color-neutral-300);stroke-width:1"></line>
+          </sc-for>
+          <sc-for list="{{ sc.c.lines }}" as="l" hint-placeholder-count="0"><path d="{{ l.d }}" style="fill:none;stroke:{{ l.stroke }};stroke-width:{{ l.sw }};stroke-dasharray:{{ l.dash }};stroke-linejoin:round"></path></sc-for>
+          
+        </svg><sc-for list="{{ sc.c.gridY }}" as="g" hint-placeholder-count="0"><div style="position:absolute;left:{{ g.txp }};top:{{ g.yp }};transform:translate(-100%,-50%);font-size:12px;line-height:1;color:var(--color-neutral-700);white-space:nowrap;pointer-events:none">{{ g.label }}</div></sc-for><sc-for list="{{ sc.c.ticksX }}" as="t" hint-placeholder-count="0"><div style="position:absolute;left:{{ t.xp }};top:{{ t.yp }};transform:translate(-50%,-100%);font-size:12px;line-height:1;color:var(--color-neutral-700);white-space:nowrap;pointer-events:none">{{ t.label }}</div></sc-for></div>
+        <p style="margin:0;font-size:13px;color:var(--color-neutral-700);text-wrap:pretty">Supuestos: elasticidad precio −1,4; elasticidad al descuento 1,6 durante los meses de promoción. Los ingresos aplican el precio y el descuento de cada modelo.</p>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ is.exportar }}" hint-placeholder-val="{{ false }}">
+  <section data-screen-label="06 Exportar" style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
+    <div class="card blueprint" style="padding:20px;gap:18px;flex:1 1 300px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <span class="card-kicker" style="color:var(--color-accent-700)">Configuración</span>
+      <div style="display:flex;flex-direction:column;gap:4px;font-size:14px">
+        <span>{{ ex.summary }}</span>
+        <button class="btn btn-ghost" onClick="{{ nav.prevision.go }}" style="align-self:flex-start;padding-left:0">Cambiar en Previsión →</button>
+      </div>
+      <div class="field">
+        <label>Contenido</label>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <sc-for list="{{ ex.checks }}" as="c" hint-placeholder-count="4">
+            <button onClick="{{ c.onClick }}" style="display:flex;align-items:center;gap:10px;background:none;border:0;padding:6px 0;cursor:pointer;font-family:var(--font-body);font-size:14px;color:var(--color-text);text-align:left">
+              <span style="width:16px;height:16px;flex:none;display:grid;place-items:center;border:1.5px solid var(--color-accent);background:{{ c.bg }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f2f2f3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>
+              <span>{{ c.label }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      <div class="field"><label>Formato</label><div class="seg" style="display:flex"><sc-for list="{{ ex.fmtOpts }}" as="o" hint-placeholder-count="2"><button class="seg-opt" onClick="{{ o.onClick }}" style="flex:1;justify-content:center;border:0;border-left:{{ o.bl }};background:{{ o.bg }};color:{{ o.fg }};font-family:var(--font-body)">{{ o.label }}</button></sc-for></div></div>
+      <button class="btn btn-primary blueprint" onClick="{{ ex.onDownload }}" style="padding:10px 16px;font-size:15px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Descargar {{ ex.fileName }}</button>
+      <sc-if value="{{ ex.done }}" hint-placeholder-val="{{ false }}">
+        <span style="font-size:13px;background:var(--color-accent-100);color:var(--color-accent-800);padding:10px 12px">{{ ex.doneMsg }}</span>
+      </sc-if>
+    </div>
+    <div class="card blueprint" style="padding:20px;gap:12px;min-width:0;flex:3 1 520px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <span class="card-kicker" style="color:var(--color-accent-700)">Vista previa del archivo</span>
+          <span class="card-title" style="font-size:20px">{{ ex.fileName }}</span>
+        </div>
+        <span style="font-size:13px;color:var(--color-neutral-700)">{{ ex.rowsMeta }}</span>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="table" style="font-size:13px;font-variant-numeric:tabular-nums">
+          <thead><tr><sc-for list="{{ ex.head }}" as="h" hint-placeholder-count="5"><th>{{ h }}</th></sc-for></tr></thead>
+          <tbody><sc-for list="{{ ex.preview }}" as="r" hint-placeholder-count="6"><tr><sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="5"><td>{{ c }}</td></sc-for></tr></sc-for></tbody>
+        </table>
+      </div>
+      <sc-if value="{{ ex.hasExtra }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--color-divider);padding-top:12px;font-size:13px;color:var(--color-neutral-800)">
+          <sc-for list="{{ ex.extra }}" as="x" hint-placeholder-count="2"><span>{{ x }}</span></sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const MESL=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const SEAS=[.86,.92,1.1,1,1.07,1.22,1.14,.68,.9,.97,.98,1.08];
+const WEEK=[.35,1.08,1.05,1.05,1.08,1.18,1.21];
+const SKUS=[
+  {id:'VEL',name:'Vela',seg:'Compacto · gasolina',base:34,trend:.02,price:21500},
+  {id:'NOR',name:'Nordic',seg:'SUV · híbrido',base:46,trend:.09,price:34900},
+  {id:'VOL',name:'Volt-E',seg:'SUV · eléctrico',base:12,trend:.32,price:39900},
+  {id:'ARI',name:'Aria',seg:'Berlina · diésel',base:21,trend:-.08,price:31200},
+  {id:'BRI',name:'Brisa',seg:'Comercial · diésel',base:16,trend:.03,price:27800}
+];
+const START=Date.UTC(2023,9,1),N=1096,EXT=640,DAY=864e5;
+const HOR={m:[6,12,18],w:[12,26,52],d:[30,60,90]};
+const HIST={m:24,w:52,d:90};
+const BT={m:6,w:12,d:30};
+const GRAN_L={m:'Mensual',w:'Semanal',d:'Diaria'};
+const UNIT_L={m:'meses',w:'semanas',d:'días'};
+const MON=new Int8Array(N+EXT),DOW=new Int8Array(N+EXT),YR=new Int16Array(N+EXT),DD=new Int8Array(N+EXT);
+for(let i=0;i<N+EXT;i++){const d=new Date(START+i*DAY);MON[i]=d.getUTCMonth();DOW[i]=d.getUTCDay();YR[i]=d.getUTCFullYear();DD[i]=d.getUTCDate();}
+const expDay=(s,i)=>s.base*(1+s.trend*i/365.25)*SEAS[MON[i]]*WEEK[DOW[i]];
+const fmt=n=>(n<0?'−':'')+String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+const dec=(v,d)=>v.toFixed(d).replace('.',',');
+const fmtK=v=>v>=1000?dec(Math.round(v/100)/10,v%1000===0?0:1)+'k':String(Math.round(v));
+const pct=(v,d=1)=>(v>0.0005?'+':v<-0.0005?'−':'')+dec(Math.abs(v*100),d)+' %';
+const eur=v=>v>=1e6?dec(v/1e6,1)+' M€':fmt(v)+' €';
+const iso=i=>new Date(START+i*DAY).toISOString().slice(0,10);
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function gauss(r){let u=0;while(!u)u=r();const v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+function hash(s){let h=7;for(const c of s)h=(h*31+c.charCodeAt(0))|0;return h}
+function niceMax(v){if(v<=0)return 1;const e=Math.pow(10,Math.floor(Math.log10(v)));const f=v/e;return(f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*e}
+function chart(o){
+  const W=o.W,H=o.H,L=o.padL||54,R=14,T=24,B=30,n=o.labels.length,pw=W-L-R,ph=H-T-B;
+  let mx=0;const see=v=>{if(v!=null&&v>mx)mx=v};
+  o.lines.forEach(l=>l.v.forEach(see));if(o.band)o.band.hi.forEach(see);
+  const top=Math.max(1,mx*1.03),e10=Math.pow(10,Math.floor(Math.log10(top/5)));
+  let stp=10*e10;for(const m of [1,1.5,2,2.5,3,4,5,10]){if(Math.ceil(top/(m*e10))<=5){stp=m*e10;break}}
+  const ym=Math.ceil(top/stp)*stp;
+  const X=i=>L+(n>1?i*pw/(n-1):pw/2),Y=v=>T+ph*(1-v/ym);
+  const gridY=[];for(let v=0;v<=ym+1e-9;v+=stp){const y=Y(v);gridY.push({y,x1:L,x2:W-R,tx:L-10,ty:y+4,txp:(L-10)+'px',yp:y+'px',label:fmtK(v)})}
+  const ev=Math.max(1,Math.ceil(n/Math.min(o.maxTicks||12,Math.floor(pw/72))));const ticksX=[];
+  for(let i=0;i<n;i+=ev)ticksX.push({x:X(i),y:H-6,xp:X(i)+'px',yp:(H-6)+'px',label:o.labels[i]});
+  const path=v=>{let d='',pen=false;v.forEach((y,i)=>{if(y==null){pen=false;return}d+=(pen?'L':'M')+X(i).toFixed(1)+' '+Y(y).toFixed(1);pen=true});return d};
+  const lines=o.lines.map(l=>({d:path(l.v),stroke:l.stroke,sw:l.sw||2,dash:l.dash||'none'}));
+  let bandD='';
+  if(o.band){const ix=[];o.band.lo.forEach((v,i)=>{if(v!=null)ix.push(i)});
+    if(ix.length)bandD='M'+ix.map(i=>X(i).toFixed(1)+' '+Y(o.band.hi[i]).toFixed(1)).join('L')+'L'+ix.slice().reverse().map(i=>X(i).toFixed(1)+' '+Y(o.band.lo[i]).toFixed(1)).join('L')+'Z';}
+  const sx=o.split!=null?X(o.split):W-R;const step=n>1?pw/(n-1):pw;
+  const zones=(o.zones||[]).map(i=>{const x0=Math.max(L,X(i)-step/2),x1=Math.min(W-R,X(i)+step/2);return{x:x0,y:T,w:x1-x0,h:ph}});
+  return{W,H,L,pw,n,X,Y,viewBox:'0 0 '+W+' '+H,gridY,ticksX,lines,bandD,splitX:sx,splitTx:sx+8,splitTy:T-8,top:T-4,bottom:T+ph,zone:{x:sx,y:T,w:Math.max(0,W-R-sx),h:ph},zones};
+}
+const segOpts=(opts,cur,fn)=>opts.map((o,k)=>{const v=typeof o==='object'?o.v:o,l=typeof o==='object'?o.l:o,on=v===cur;
+  return{label:l,onClick:()=>fn(v),bg:on?'var(--color-accent)':'transparent',fg:on?'var(--color-bg)':'var(--color-text)',bl:k?'1px solid var(--color-divider)':'0'}});
+const HEAD={
+  datos:['01 · Datos','Carga de histórico','Importa las ventas históricas por modelo de vehículo. El sistema valida el formato y agrega la serie a diaria, semanal o mensual.'],
+  prevision:['02 · Previsión','Previsión de ventas','Serie histórica y previsión con intervalo de confianza al 95 %. Pasa el cursor por el gráfico para ver cada periodo.'],
+  modelos:['03 · Modelos','Comparativa de modelos','Las tres fases del sistema evaluadas sobre los últimos 12 meses con backtesting. Pulsa una tarjeta para mostrarla u ocultarla en el gráfico.'],
+  lanzamiento:['04 · Sin histórico','Lanzamiento de un modelo nuevo','Previsión para un vehículo sin ventas previas mediante una curva de difusión de Bass calibrada con modelos análogos de la gama.'],
+  escenarios:['05 · Simulación','Escenarios','Simula el efecto del precio, las promociones, los incentivos y la estacionalidad sobre la previsión base.'],
+  exportar:['06 · Resultados','Exportar resultados','Descarga la previsión y las métricas para el informe o para procesarlas en Python.']
+};
+const SCEN0={dp:0,disc:10,promo:'ver',incent:false,seas:'normal'};
+
+class Component extends DCLogic {
+  data=null; cache={}; fcMeta=null;
+  state=(()=>{let s={};try{s=JSON.parse(localStorage.getItem('spv-ui')||'{}')}catch(e){}
+    return{screen:s.screen||'prevision',sku:s.sku||'ALL',gran:s.gran||'m',hz:s.hz!=null?s.hz:1,hover:null,
+      vis:{f1:true,f2:true,f3:true},
+      launch:{name:'Nuevo SUV compacto',seg:'SUV',motor:'Híbrido',price:32000,month:4,camp:'Media',analogs:['NOR']},
+      scen:{...SCEN0},
+      ex:{fmt:'CSV',inc:{fc:true,ci:true,met:true,sc:false},done:null},
+      up:{file:null,size:0,headers:[],rows:[],total:null,map:{},status:'idle',drag:false,note:''},
+      dataset:'ventas_concesionarios_2023-2026.csv'}})();
+
+  ros={}; els={};
+  cw(k,d){return(this.state.cw&&this.state.cw[k])||d}
+  refFor(k){if(!this['_r'+k])this['_r'+k]=el=>{if(this.ros[k]){this.ros[k].disconnect();delete this.ros[k]}
+    if(!el)return;const ro=new ResizeObserver(en=>{const w=Math.round(en[0].contentRect.width);if(w>0&&Math.abs(w-this.cw(k,0))>2)this.setState(s=>({cw:{...(s.cw||{}),[k]:w}}))});ro.observe(el);this.ros[k]=ro};return this['_r'+k]}
+  componentWillUnmount(){Object.values(this.ros).forEach(r=>r.disconnect())}
+  componentDidUpdate(){const{screen,sku,gran,hz}=this.state;try{localStorage.setItem('spv-ui',JSON.stringify({screen,sku,gran,hz}))}catch(e){}}
+
+  ensure(){if(this.data)return;const r=mulberry(20261009);
+    this.data=SKUS.map(s=>{const a=new Float64Array(N);for(let i=0;i<N;i++)a[i]=Math.max(0,Math.round(expDay(s,i)*(1+0.2*gauss(r))));return a});}
+
+  periods(g){const ck='P'+g;if(this.cache[ck])return this.cache[ck];const list=[];let cur=null;
+    for(let i=0;i<N+EXT;i++){const key=g==='m'?YR[i]*12+MON[i]:g==='w'?Math.floor((i+6)/7):i;
+      if(!cur||cur.key!==key){cur={key,days:[],i0:i};list.push(cur)}cur.days.push(i)}
+    let last=-1;list.forEach((p,j)=>{if(p.days[p.days.length-1]<N&&(g!=='w'||p.days.length===7))last=j});
+    list.forEach(p=>{const i=p.i0;p.iso=iso(i);
+      p.label=g==='m'?MES[MON[i]]+' '+String(YR[i]).slice(2):DD[i]+' '+MES[MON[i]];
+      p.long=g==='m'?MESL[MON[i]]+' '+YR[i]:(g==='w'?'Semana del ':'')+DD[i]+' '+MES[MON[i]]+' '+YR[i]});
+    return this.cache[ck]={list,last}}
+
+  skuIdx(sku){return sku==='ALL'?SKUS.map((_,i)=>i):[Math.max(0,SKUS.findIndex(s=>s.id===sku))]}
+
+  series(sku,g){const ck=sku+g;if(this.cache[ck])return this.cache[ck];const{list,last}=this.periods(g);const idx=this.skuIdx(sku);
+    const rows=list.map((p,j)=>{let a=0,e=0;for(const i of p.days)for(const s of idx){e+=expDay(SKUS[s],i);if(i<N)a+=this.data[s][i]}return{p,j,act:j<=last?a:null,exp:e}});
+    return this.cache[ck]={rows,last}}
+
+  fcView(){
+    const{sku,gran:g,hz,hover}=this.state,H=HOR[g][hz];const{rows,last}=this.series(sku,g);
+    const hist=rows.slice(last+1-HIST[g],last+1),fut=rows.slice(last+1,last+1+H);
+    const nd=g==='m'?30.4:g==='w'?7:1,k=sku==='ALL'?0.6:1;
+    const rel=h=>0.03+0.17*k/Math.sqrt(nd)+0.005*h;
+    const F=fut.map((r,h)=>({r,v:r.exp,lo:Math.max(0,r.exp*(1-1.96*rel(h+1))),hi:r.exp*(1+1.96*rel(h+1))}));
+    const hl=hist.length,n=hl+F.length,lastAct=hist[hl-1].act;
+    const pad=v=>hist.map((_,i)=>i===hl-1?v:null);
+    const real=[...hist.map(r=>r.act),...F.map(()=>null)];
+    const fc=[...pad(lastAct),...F.map(f=>f.v)],lo=[...pad(lastAct),...F.map(f=>f.lo)],hi=[...pad(lastAct),...F.map(f=>f.hi)];
+    const labels=[...hist,...fut].map(r=>r.p.label);
+    const c=chart({W:this.cw('fc',1100),H:340,labels,lines:[{v:real,stroke:'var(--color-accent-800)',sw:2},{v:fc,stroke:'var(--color-accent)',sw:2.2,dash:'7 5'}],band:{lo,hi},split:hl-1,maxTicks:12});
+    this.fcMeta={W:c.W,L:c.L,pw:c.pw,n};
+    let tip={op:0,x:0,y:0,left:'0%',top:'0%',title:'',value:'',sub:''};
+    if(hover!=null&&hover<n){const isF=hover>=hl,f=isF?F[hover-hl]:null,r=isF?f.r:hist[hover],val=isF?f.v:r.act;
+      const x=c.X(hover),y=c.Y(val);
+      tip={op:1,x,y,left:Math.min(90,Math.max(10,x/c.W*100))+'%',top:(y/c.H*100)+'%',title:r.p.long,value:fmt(val)+' uds',
+        sub:isF?'Previsión · IC 95 %: '+fmt(f.lo)+' – '+fmt(f.hi):'Ventas reales'}}
+    const idx=this.skuIdx(sku);let y1=0,y0=0;
+    for(const s of idx){for(let i=N-365;i<N;i++)y1+=this.data[s][i];for(let i=N-730;i<N-365;i++)y0+=this.data[s][i]}
+    const fsum=F.reduce((a,f)=>a+f.v,0),prev=rows.slice(last+1-H,last+1).reduce((a,r)=>a+r.act,0);
+    const bt=rows.slice(last+1-BT[g],last+1);let ape=0,se=0;bt.forEach(r=>{ape+=Math.abs(r.act-r.exp)/Math.max(1,r.act);se+=(r.act-r.exp)**2});
+    const mape=ape/bt.length,rmse=Math.sqrt(se/bt.length);
+    const btL='Backtest · últimos '+BT[g]+' '+UNIT_L[g];
+    const kpis=[
+      {kicker:'Ventas últimos 12 meses',value:fmt(y1),unit:'uds',meta:pct(y1/y0-1)+' vs. 12 meses anteriores'},
+      {kicker:'Previsión próximos '+H+' '+UNIT_L[g],value:fmt(fsum),unit:'uds',meta:pct(fsum/prev-1)+' vs. '+H+' '+UNIT_L[g]+' anteriores'},
+      {kicker:'MAPE',value:dec(mape*100,1),unit:'%',meta:btL},
+      {kicker:'RMSE',value:fmt(rmse),unit:'uds',meta:btL}];
+    const LAG=g==='m'?12:g==='w'?52:364;
+    const detail=F.slice(0,12).map(f=>{const p=rows[f.r.j-LAG];const yoy=p&&p.act?f.v/p.act-1:null;
+      return{label:g==='m'?f.r.p.long:f.r.p.long.replace('Semana del ','Sem. '),v:fmt(f.v),ci:fmt(f.lo)+' – '+fmt(f.hi),yoy:yoy==null?'—':pct(yoy)}});
+    const per=SKUS.map(s=>{const sr=this.series(s.id,g);return sr.rows.slice(sr.last+1,sr.last+1+H).reduce((a,r)=>a+r.exp,0)});
+    const tot=per.reduce((a,b)=>a+b,0),mxs=Math.max(...per);
+    const bySku=SKUS.map((s,i)=>({name:s.name,seg:s.seg,v:fmt(per[i]),share:dec(per[i]/tot*100,0)+' %',w:(per[i]/mxs*100)+'%',
+      bg:sku===s.id?'var(--color-accent-100)':'transparent',onClick:()=>this.setState({sku:sku===s.id?'ALL':s.id,hover:null})}));
+    const skuName=sku==='ALL'?'Toda la gama':SKUS[idx[0]].name;
+    return{c,tip,kpis,detail,bySku,F,mape,rmse,
+      kicker:skuName+' · '+GRAN_L[g].toLowerCase()+' · '+H+' '+UNIT_L[g],
+      detailMeta:F.length>12?'12 de '+F.length+' periodos':F.length+' periodos'}}
+
+  mdView(){
+    const{sku,vis}=this.state;const{rows,last}=this.series(sku,'m');const T=rows.slice(last-11,last+1);const r=mulberry(hash(sku));
+    const act=T.map(x=>x.act);
+    const f={f1:T.map(x=>rows[x.j-12].act),f2:T.map(x=>x.exp*(1+0.075*gauss(r))),f3:T.map(x=>x.exp*(1+0.035*gauss(r)))};
+    const wd={f1:.13,f2:.09,f3:.06};
+    const met=id=>{let ape=0,se=0,cov=0;f[id].forEach((p,k)=>{const a=act[k];ape+=Math.abs(a-p)/a;se+=(a-p)**2;if(Math.abs(a-p)<=1.96*wd[id]*p)cov++});
+      return{mape:ape/12,rmse:Math.sqrt(se/12),cov:cov/12}};
+    const M={f1:met('f1'),f2:met('f2'),f3:met('f3')};
+    const best=Object.keys(M).sort((a,b)=>M[a].mape-M[b].mape)[0];
+    const DEF=[
+      {id:'f1',fase:'Fase 1 · Línea base',name:'Naïve estacional',desc:'Repite las ventas del mismo mes del año anterior. Es la referencia mínima que cualquier modelo debe superar.',stroke:'var(--color-neutral-600)',dash:'2 4'},
+      {id:'f2',fase:'Fase 2 · Estadístico',name:'Holt-Winters (ETS)',desc:'Suavizado exponencial con tendencia amortiguada y estacionalidad multiplicativa anual.',stroke:'var(--color-accent-400)',dash:'8 4'},
+      {id:'f3',fase:'Fase 3 · Machine learning',name:'Gradient boosting',desc:'Árboles de decisión con variables exógenas: precio, promociones, calendario laboral y matriculaciones del sector.',stroke:'var(--color-accent)',dash:'none'}];
+    const phases=DEF.map(d=>({...d,mape:dec(M[d.id].mape*100,1)+' %',rmse:fmt(M[d.id].rmse),cov:dec(M[d.id].cov*100,0)+' %',best:d.id===best,
+      op:vis[d.id]?1:0.5,toggleLabel:vis[d.id]?'Visible en el gráfico · ocultar':'Oculto · mostrar en el gráfico',
+      toggle:()=>this.setState(s=>({vis:{...s.vis,[d.id]:!s.vis[d.id]}}))}));
+    const lines=[{v:act,stroke:'var(--color-accent-900)',sw:2.4}];
+    DEF.forEach(d=>{if(vis[d.id])lines.push({v:f[d.id],stroke:d.stroke,sw:d.id==='f3'?2:2,dash:d.dash})});
+    const c=chart({W:this.cw('md',1100),H:320,labels:T.map(x=>x.p.label),lines,maxTicks:12});
+    return{phases,c,window:'Granularidad mensual · ventana de test: '+T[0].p.long+' – '+T[11].p.long+' · línea oscura = ventas reales'}}
+
+  lnView(){
+    const L=this.state.launch;const set=p=>this.setState(s=>({launch:{...s.launch,...p}}));
+    const SEG={Compacto:{m:9500,ref:22000},SUV:{m:12500,ref:33000},Berlina:{m:6500,ref:31000},Comercial:{m:5200,ref:28000}};
+    const MOT={Gasolina:{f:1,q:.30},'Híbrido':{f:1.08,q:.36},'Eléctrico':{f:.72,q:.44}};
+    const CAMP={Baja:.018,Media:.03,Alta:.05};
+    let m=SEG[L.seg].m*MOT[L.motor].f*Math.pow(SEG[L.seg].ref/L.price,0.9);
+    if(L.analogs.length){const ma=L.analogs.reduce((a,id)=>{const s=SKUS.findIndex(x=>x.id===id);let t=0;for(let i=N-365;i<N;i++)t+=this.data[s][i];return a+t},0)/L.analogs.length*1.7;m=0.5*m+0.5*ma}
+    const p=CAMP[L.camp],q=MOT[L.motor].q;
+    const Fb=t=>(1-Math.exp(-(p+q)*t))/(1+(q/p)*Math.exp(-(p+q)*t));
+    const v=[],lo=[],hi=[],labels=[];
+    for(let t=0;t<24;t++){const a=10+L.month+t,mo=a%12,yr=2026+Math.floor(a/12);const x=m*(Fb(t+1)-Fb(t))*SEAS[mo];const w=1.96*(0.09+0.007*t);
+      v.push(x);lo.push(Math.max(0,x*(1-w)));hi.push(x*(1+w));labels.push(MES[mo]+' '+String(yr).slice(2))}
+    const y1=v.slice(0,12).reduce((a,b)=>a+b,0),tot=v.reduce((a,b)=>a+b,0);const pk=v.indexOf(Math.max(...v));
+    const c=chart({W:this.cw('ln',820),H:320,labels,lines:[{v,stroke:'var(--color-accent)',sw:2.4}],band:{lo,hi},maxTicks:12});
+    const monthOpts=[];for(let k=0;k<12;k++){const a=10+k;monthOpts.push({v:String(k),l:MESL[a%12]+' '+(2026+Math.floor(a/12))})}
+    return{name:L.name,onName:e=>set({name:e.target.value}),
+      segOpts:segOpts(['Compacto','SUV','Berlina','Comercial'],L.seg,v=>set({seg:v})),
+      motorOpts:segOpts(['Gasolina','Híbrido','Eléctrico'],L.motor,v=>set({motor:v})),
+      campOpts:segOpts(['Baja','Media','Alta'],L.camp,v=>set({camp:v})),
+      price:L.price,priceL:fmt(L.price)+' €',onPrice:e=>set({price:+e.target.value}),
+      month:String(L.month),monthOpts,onMonth:e=>set({month:+e.target.value}),
+      analogs:SKUS.map(s=>{const on=L.analogs.includes(s.id);return{label:s.name,
+        onClick:()=>set({analogs:on?L.analogs.filter(x=>x!==s.id):[...L.analogs,s.id]}),
+        border:on?'var(--color-accent)':'var(--color-divider)',bg:on?'var(--color-accent)':'transparent',fg:on?'var(--color-bg)':'var(--color-text)'}}),
+      kpis:[{kicker:'Ventas primer año',value:fmt(y1),unit:'uds',meta:'IC 95 %: '+fmt(y1*0.8)+' – '+fmt(y1*1.2)},
+        {kicker:'Mes de máximas ventas',value:labels[pk],unit:'',meta:fmt(v[pk])+' uds previstas'},
+        {kicker:'Total 24 meses',value:fmt(tot),unit:'uds',meta:dec(tot/m*100,0)+' % del mercado potencial'}],
+      title:(L.name||'Nuevo modelo')+' · '+L.seg+' '+L.motor.toLowerCase(),
+      params:'m = '+fmt(m)+' uds · p = '+dec(p,3)+' · q = '+dec(q,2),c}}
+
+  scView(){
+    const{sku,scen:S}=this.state;const set=p=>this.setState(s=>({scen:{...s.scen,...p}}));
+    const idx=this.skuIdx(sku);const{list,last}=this.periods('m');const months=list.slice(last+1,last+13);
+    const PROMO={pri:[2,3,4],ver:[5,6],fin:[10,11]};
+    const base=new Array(12).fill(0),sc=new Array(12).fill(0);let revB=0,revS=0;
+    for(const s of idx){const sv=this.series(SKUS[s].id,'m').rows.slice(last+1,last+13).map(r=>r.exp);const mean=sv.reduce((a,b)=>a+b,0)/12;
+      sv.forEach((b,k)=>{const mo=MON[months[k].i0];let x=S.seas==='suave'?mean+(b-mean)*0.5:S.seas==='acent'?mean+(b-mean)*1.5:b;
+        x*=Math.max(0,1-1.4*S.dp/100);const promo=PROMO[S.promo].includes(mo);if(promo)x*=1+1.6*S.disc/100;
+        if(S.incent)x*=1+(SKUS[s].id==='VOL'?0.14:0.03);
+        base[k]+=b;sc[k]+=x;const pr=SKUS[s].price;revB+=b*pr;revS+=x*pr*(1+S.dp/100)*(promo?1-S.disc/100:1)})}
+    const uB=base.reduce((a,b)=>a+b,0),uS=sc.reduce((a,b)=>a+b,0);
+    let mk=0;sc.forEach((v,k)=>{if(Math.abs(v-base[k])>Math.abs(sc[mk]-base[mk]))mk=k});
+    const zones=[];months.forEach((p,k)=>{if(PROMO[S.promo].includes(MON[p.i0])&&S.disc>0)zones.push(k)});
+    const c=chart({W:this.cw('sc',820),H:320,labels:months.map(p=>p.label),lines:[{v:base,stroke:'var(--color-neutral-600)',sw:2,dash:'6 5'},{v:sc,stroke:'var(--color-accent)',sw:2.4}],zones,maxTicks:12});
+    const on=S.incent;
+    return{dp:S.dp,dpL:(S.dp>0?'+':'')+S.dp+' %',onDp:e=>set({dp:+e.target.value}),
+      disc:S.disc,discL:S.disc+' %',onDisc:e=>set({disc:+e.target.value}),
+      promoOpts:segOpts([{v:'pri',l:'Primavera'},{v:'ver',l:'Verano'},{v:'fin',l:'Fin de año'}],S.promo,v=>set({promo:v})),
+      seasOpts:segOpts([{v:'suave',l:'Suavizada'},{v:'normal',l:'Normal'},{v:'acent',l:'Acentuada'}],S.seas,v=>set({seas:v})),
+      onIncent:()=>set({incent:!S.incent}),onReset:()=>this.setState({scen:{...SCEN0}}),
+      tgBorder:on?'var(--color-accent)':'var(--color-neutral-500)',tgBg:on?'var(--color-accent)':'transparent',tgLeft:on?'20px':'2px',tgKnob:on?'var(--color-bg)':'var(--color-neutral-500)',
+      kpis:[{kicker:'Unidades 12 meses',value:fmt(uS),unit:'uds',meta:pct(uS/uB-1)+' vs. base ('+fmt(uB)+')'},
+        {kicker:'Ingresos estimados',value:eur(revS),unit:'',meta:pct(revS/revB-1)+' vs. base ('+eur(revB)+')'},
+        {kicker:'Mayor impacto',value:months[mk].label,unit:'',meta:(sc[mk]-base[mk]>=0?'+':'−')+fmt(Math.abs(sc[mk]-base[mk]))+' uds frente a la base'}],
+      c,uS,uB,revS,revB}}
+
+  exView(fv,sv){
+    const{ex,sku,gran:g,hz}=this.state;const H=HOR[g][hz];const setEx=p=>this.setState(s=>({ex:{...s.ex,...p}}));
+    const head=['periodo','sku','prevision_uds'];if(ex.inc.ci)head.push('ic95_inf','ic95_sup');
+    const rows=fv.F.map(f=>{const r=[f.r.p.iso,sku,Math.round(f.v)];if(ex.inc.ci)r.push(Math.round(f.lo),Math.round(f.hi));return r});
+    const extra=[];
+    if(ex.inc.met)extra.push('Métricas: MAPE '+dec(fv.mape*100,2)+' % · RMSE '+fmt(fv.rmse)+' uds');
+    if(ex.inc.sc)extra.push('Escenario: '+fmt(sv.uS)+' uds en 12 meses ('+pct(sv.uS/sv.uB-1)+' vs. base) · ingresos '+eur(sv.revS));
+    const ext=ex.fmt==='CSV'?'csv':'json';const fileName='prevision_'+sku.toLowerCase()+'_'+GRAN_L[g].toLowerCase()+'_'+H+'.'+ext;
+    const CH=[{k:'fc',label:'Previsión puntual por periodo (obligatorio)'},{k:'ci',label:'Intervalo de confianza 95 %'},{k:'met',label:'Métricas de error (MAPE, RMSE)'},{k:'sc',label:'Escenario simulado actual'}];
+    const download=()=>{let txt,type;
+      if(ext==='csv'){txt=[head.join(';'),...rows.map(r=>r.join(';'))].join('\n');
+        if(ex.inc.met)txt+='\n\n# metrica;valor\n# mape;'+dec(fv.mape,4)+'\n# rmse;'+dec(fv.rmse,1);
+        if(ex.inc.sc)txt+='\n# escenario_unidades;'+Math.round(sv.uS)+'\n# escenario_ingresos;'+Math.round(sv.revS);type='text/csv'}
+      else{const o={sku,granularidad:GRAN_L[g].toLowerCase(),horizonte:H,prevision:rows.map(r=>Object.fromEntries(head.map((h,i)=>[h,r[i]])))};
+        if(ex.inc.met)o.metricas={mape:+fv.mape.toFixed(4),rmse:+fv.rmse.toFixed(1)};
+        if(ex.inc.sc)o.escenario={...this.state.scen,unidades_12m:Math.round(sv.uS),ingresos_12m:Math.round(sv.revS)};
+        txt=JSON.stringify(o,null,2);type='application/json'}
+      const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type}));a.download=fileName;document.body.appendChild(a);a.click();a.remove();
+      setEx({done:fileName})};
+    return{summary:(sku==='ALL'?'Toda la gama':SKUS[this.skuIdx(sku)[0]].name)+' · '+GRAN_L[g]+' · '+H+' '+UNIT_L[g],
+      checks:CH.map(c=>({label:c.label,bg:ex.inc[c.k]?'var(--color-accent)':'transparent',
+        onClick:()=>{if(c.k==='fc')return;setEx({inc:{...ex.inc,[c.k]:!ex.inc[c.k]},done:null})}})),
+      fmtOpts:segOpts(['CSV','JSON'],ex.fmt,v=>setEx({fmt:v,done:null})),
+      fileName,head,preview:rows.slice(0,8).map(r=>({cells:r.map(v=>typeof v==='number'&&head.length?fmt(v):v)})),
+      rowsMeta:rows.length+' filas · mostrando '+Math.min(8,rows.length),extra,hasExtra:extra.length>0,
+      onDownload:download,done:!!ex.done,doneMsg:'Descargado '+ex.done+'.'}}
+
+  handleFile(f){
+    const up={file:f.name,size:f.size,headers:[],rows:[],total:null,map:{},status:'preview',drag:false,note:''};
+    const guess=h=>{const m={};h.forEach(x=>{const l=x.toLowerCase();if(!m.fecha&&/fecha|date/.test(l))m.fecha=x;if(!m.sku&&/sku|modelo|producto/.test(l))m.sku=x;if(!m.unidades&&/unid|cant|ventas|units|qty/.test(l))m.unidades=x});return m};
+    if(/\.csv$/i.test(f.name)){const rd=new FileReader();rd.onload=()=>{const lines=String(rd.result).split(/\r?\n/).filter(Boolean);
+      const sep=lines[0].includes(';')?';':',';const headers=lines[0].split(sep).map(s=>s.trim());
+      this.setState({up:{...up,headers,rows:lines.slice(1,7).map(l=>l.split(sep).map(s=>s.trim())),total:lines.length-1,map:guess(headers)}})};rd.readAsText(f)}
+    else this.setState({up:{...up,headers:['fecha','sku','unidades','precio'],map:{fecha:'fecha',sku:'sku',unidades:'unidades'},note:'La vista previa de Excel se genera al procesar el archivo en el servidor.'}});
+  }
+
+  upView(){
+    const U=this.state.up;const has=U.status!=='idle';
+    const rows=U.rows.map(r=>({cells:r}));
+    const maps=[{k:'fecha',label:'Columna de fecha'},{k:'sku',label:'Columna de modelo (SKU)'},{k:'unidades',label:'Columna de unidades vendidas'}].map(m=>({label:m.label,value:U.map[m.k]||'',
+      onChange:e=>{const v=e.target.value;this.setState(s=>({up:{...s.up,map:{...s.up.map,[m.k]:v},status:'preview'}}))}}));
+    const ok=k=>!!U.map[k];
+    const checks=[{label:'Fecha asignada',o:ok('fecha')},{label:'Modelo (SKU) asignado',o:ok('sku')},{label:'Unidades asignadas',o:ok('unidades')}].map(c=>({label:c.label,dot:c.o?'var(--color-accent)':'transparent',state:c.o?'Correcto':'Pendiente'}));
+    const ready=ok('fecha')&&ok('sku')&&ok('unidades');
+    return{has,file:U.file,headers:U.headers,rows,note:U.note,maps,checks,disabled:!ready||U.status==='done',done:U.status==='done',
+      cta:U.status==='done'?'Datos procesados':'Validar y procesar',
+      meta:(U.total!=null?fmt(U.total)+' filas · ':'')+(U.size?dec(U.size/1024,1)+' KB':'dataset de ejemplo'),
+      border:U.drag?'var(--color-accent)':'var(--color-neutral-500)',bg:U.drag?'var(--color-accent-100)':'transparent'}}
+
+  renderVals(){
+    this.ensure();const st=this.state;const g=st.gran;
+    const go=id=>()=>this.setState({screen:id,hover:null});
+    const nav={};Object.keys(HEAD).forEach(id=>{const on=st.screen===id;nav[id]={go:go(id),bg:on?'rgba(255,255,255,0.08)':'transparent',fg:on?'#fff':'var(--color-neutral-300)',bar:on?'var(--color-accent-400)':'transparent'}});
+    const is={};Object.keys(HEAD).forEach(id=>is[id]=st.screen===id);
+    const h=HEAD[st.screen]||HEAD.prevision;
+    const fc=this.fcView(),sc=this.scView();
+    return{rFc:this.refFor('fc'),rMd:this.refFor('md'),rLn:this.refFor('ln'),rSc:this.refFor('sc'),nav,is,head:{step:h[0],title:h[1],sub:h[2]},dataset:st.dataset,sku:st.sku,
+      skuOpts:[{id:'ALL',label:'Toda la gama (5 modelos)'},...SKUS.map(s=>({id:s.id,label:s.name+' · '+s.seg}))],
+      onSku:e=>this.setState({sku:e.target.value,hover:null}),
+      granOpts:segOpts([{v:'d',l:'Diaria'},{v:'w',l:'Semanal'},{v:'m',l:'Mensual'}],g,v=>this.setState({gran:v,hover:null})),
+      hzOpts:segOpts(HOR[g].map((n,i)=>({v:i,l:n+' '+UNIT_L[g]})),st.hz,v=>this.setState({hz:v,hover:null})),
+      fc,
+      onFcMove:e=>{const m=this.fcMeta;if(!m)return;const r=e.currentTarget.getBoundingClientRect();const px=(e.clientX-r.left)/r.width*m.W;
+        let i=Math.round((px-m.L)/(m.pw/(m.n-1)));i=Math.max(0,Math.min(m.n-1,i));if(i!==this.state.hover)this.setState({hover:i})},
+      onFcLeave:()=>this.setState({hover:null}),
+      md:this.mdView(),ln:this.lnView(),sc,ex:this.exView(fc,sc),
+      up:this.upView(),
+      dsSpecs:[{k:'Registros',v:fmt(N*SKUS.length)},{k:'Modelos',v:String(SKUS.length)},{k:'Desde',v:'1 oct 2023'},{k:'Hasta',v:'30 sep 2026'},{k:'Frecuencia',v:'Diaria'}],
+      onDragOver:e=>{e.preventDefault();if(!this.state.up.drag)this.setState(s=>({up:{...s.up,drag:true}}))},
+      onDragLeave:()=>this.setState(s=>({up:{...s.up,drag:false}})),
+      onDrop:e=>{e.preventDefault();const f=e.dataTransfer.files[0];if(f)this.handleFile(f);else this.setState(s=>({up:{...s.up,drag:false}}))},
+      onFile:e=>{const f=e.target.files[0];if(f)this.handleFile(f)},
+      onSample:()=>{const rows=[];for(let i=N-2;i<N;i++)SKUS.slice(0,3).forEach((s,k)=>rows.push([iso(i),s.id,String(this.data[k][i]),String(s.price),'0']));
+        this.setState({up:{file:'ventas_concesionarios_2023-2026.csv',size:0,headers:['fecha','sku','unidades','precio','promocion'],rows,total:N*SKUS.length,map:{fecha:'fecha',sku:'sku',unidades:'unidades'},status:'preview',drag:false,note:'Primeras filas del archivo. Las columnas precio y promocion se usarán como variables exógenas en la Fase 3.'}})},
+      onProcess:()=>this.setState(s=>({up:{...s.up,status:'done'},dataset:s.up.file}))}}
+}
+</script>
+</body>
+</html>
