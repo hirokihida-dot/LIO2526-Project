@@ -20,3 +20,9 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# Project virtual environment (never venv/ — that is the ROS 2 env)
+.venv/
+
+# Local tooling state
+.atl/
